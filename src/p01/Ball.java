@@ -1,12 +1,13 @@
 package p01;
 
 import java.awt.Image;
-import java.net.URL;
-
 import javax.swing.ImageIcon;
-//TODO Transform the code to be used safely in a concurrent context.  
+
+//TODO Transform the code to be used safely in a concurrent context.
+
 public class Ball {
-       //TODO  Find an archive named Ball.png 
+    
+	//TODO  Find an archive named Ball.png 
 	private String Ball = "/Ball.png"; 
 
 	private double x,y,dx,dy;
@@ -33,8 +34,14 @@ public class Ball {
 		}
 		x += dx;   
 		y += dy;
+		
 		//TODO Check postcondition
+		
+		//System.out.println(x +" "+ y);
+		
+		checkPostcondition(x,y);
 	}
+
 
 	public void reflect() {
 		if (Math.abs(x + 32 - Board.RIGHTBOARD) <  Math.abs(dx)) {
@@ -50,6 +57,7 @@ public class Ball {
 			fi = - fi;
 		}
 		//TODO Check postcondition	
+		checkPostcondition(x,y);
 	}
 
 	public int getX() {
@@ -79,6 +87,14 @@ public class Ball {
 	public Image getImage() {
 		return image;
 	}
+	
+	private static void checkPostcondition(double x2, double y2) {
+		
+		assert x2>Board.LEFTBOARD;
+		assert x2<Board.RIGHTBOARD;
+		assert y2<Board.BOTTOMBOARD;
+		assert y2>Board.TOPBOARD;
+		
+	}
 
 }
-

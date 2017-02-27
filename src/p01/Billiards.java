@@ -4,7 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import pl01.enunciado.Ball;
+//import pl01.enunciado.Ball;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -62,11 +62,14 @@ public class Billiards extends JFrame {
 		 Runnable runloop = new Runnable() {        
 			 public void run() {          
 				 try {            
-					 for(;;) {            
-						 ball.move();             
-						 board.repaint();              
-						 Thread. sleep (100); // 100msec arbitrario            
-						 }          
+					 while(true) {            
+
+						ball.move();
+						ball.reflect();
+						           
+						board.repaint();              
+						Thread.sleep(20);          
+					 }          
 				 }catch (InterruptedException e) { 
 					 return; 
 				 }        
@@ -75,14 +78,10 @@ public class Billiards extends JFrame {
 		 return new Thread(runloop);    
 	}
 	
-	
-
 	private void initBalls() {
 		
 		for(int i=0;i<N_BALL;i++)
 			balls[i]=new Ball();
-		
-		
 	}
 
 	private class StartListener implements ActionListener {
@@ -96,19 +95,15 @@ public class Billiards extends JFrame {
 					threads[i] = makeThread(balls[i]);          
 					threads[i].start();        
 				}
-			}
-			       
+			}  
 		}
-
 	}
 					 
 				 
-			 
-	
-
 	private class StopListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			
 			// TODO Code is executed when stop button is pushed
 			if (threads != null) {         
 				for (int i = 0; i < threads.length; ++i)          
@@ -116,11 +111,11 @@ public class Billiards extends JFrame {
 				
 				threads = null;      
 			}
-
 		}
 	}
 
 	public static void main(String[] args) {
 		new Billiards();
 	}
+	
 }
